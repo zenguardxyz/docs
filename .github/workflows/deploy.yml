@@ -50,3 +50,4 @@ jobs:
           git config --global user.name "koshikraj"
           yarn install
           yarn build
+          yarn deploy
