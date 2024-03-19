@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'ZenGuard',
-  tagline: 'Programmable wallet for your peace of mind',
+  tagline: 'Smarter Module Marketplace For your Smart Accounts',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -75,9 +75,9 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: 'https://demo.zenguard.xyz',
+            href: 'https://explore.zenguard.xyz',
             position: 'left',
-            label: 'Try Demo',
+            label: 'Try Marketplace',
           },
           {
             href: 'https://disocrd.zenguard.xyz',

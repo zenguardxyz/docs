@@ -2,5 +2,6 @@
 sidebar_position: 4
 ---
 
-# Account Recovery
+# Integrate Modules from ZenGuard
+
 Coming soon!

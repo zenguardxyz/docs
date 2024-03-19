@@ -9,57 +9,37 @@ import { Button } from './button/button.component';
 
 # Introduction
 
-> **Programmable Wallet
-For Your Peace of Mind**
+> **Smarter Module Marketplace
+For your Smart Accounts**
 > 
 
-**Smart contract Wallet SDK where recovery made *secure*,
-features made *programmble*, onboarding made *simple* **
+** Extending your smart accounts is now as *easy*
+and *secure* as installing an app on your smart phone **
 
-<Button  onClick={ ()=>{window.open("https://demo.zenguard.xyz", '_blank' )}}>Try Demo</Button>
+<Button className='green' onClick={ ()=>{window.open("https://safe2link.xyz", '_blank' )}}>Module Demo</Button>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<Button className='outline' onClick={ ()=>{window.open("https://app.safe.global/share/safe-app?appUrl=https://explore.zenguard.xyz&chain=sep", '_blank' )}}>Try Marketplace</Button>
 
 ## About:
 
-ZenGuard is an account abstraction smart contract wallet suite that makes Web3 accessible to everyone by providing a programmable wallet that is easy to onboard, recover, and has pluggable features.
-
-ZenGuard makes this possible by providing the following features:
-
-1. Easy onboarding
-2. Secure recovery
-3. Programmable plugins
+ZenGuard stands as a pioneering app store dedicated to smart contract wallets. Here, developers can easily publish and monetize their cutting-edge features, while users seamlessly enhance their accounts with top-tier security measures and user-friendly upgrades. Each feature is meticulously crafted as a [Safe modules](https://docs.safe.global/smart-account-modules), ensuring a secure and streamlined experience for all users involved.
 
 
-### Easy onboarding:
+At ZenGuard, we have designed a platform for publishing, exploring, and enabling these modules. Understanding that the security of these modules is of utmost importance, we will be onboarding module auditors through our module [dashboard](https://dashboard.zenguard.xyz).
 
-ZenGuard leverages Account Abstraction to provide keyless and gasless onboarding experience for the users. 
+ZenGuard provides all these with the help of platform that: 
 
-- **No more seed phrases:** Thanks to smart contract wallets leveraging account abstraction that provides easy authentication with any existing authentication mechanisms
-including social logins, email, touch ID, and face ID or even with the existing wallets like MetaMask.
-- **Gas sponsorships:** Perform transactions without the native currency to pay for transaction fee. Transaction fee can be completely sponsored or paid in any token.
-
-Additional security can be added for the wallet while performing transactions such as MultiSig (Provided by Safe thresholds) and 2-factor authentication
--  **MultiSig Guards**: Add more than one signer (user) to approve the transaction
--  **2FA Guards:** Enable 2FA such as mobile, email OTP, Touch ID, and Face ID authentications to approve transactions
--  **Transaction limits:** Set transaction limits for each crypto asset
-
-### Secure recovery:
-
-** *The secure recovery solutions are seamless to set up and ensure that the user always retains control of the wallet.* **
-
-Wallet recovery is an important aspect of the wallet UX, but this has been the missing piece in many existing wallets until now. The currently available recovery method in smart contract wallets is social recovery. Vitalik too has been the advocate of social recovery wallets for quite some time. But there are plenty of things to consider in social recovery to make it secure and easy to use as pointed out here: **https://twitter.com/VitalikButerin/status/1636608740513263617?s=20**
-
-At Zenguard we are trying to provide the best recovery solution leveraging the concept of social recovery but considering a whole lot of other things to make this as secure and convenient as possible for normal wallet users.
-
-Users can set various recovery mechanisms such as **biometrics, email, or even arbitration**.
+1. Onboards developers to build and publish modules, streamlining the development process.
+2. Onboards auditors to provide security assurance through onchain audit attestations for modules
+3. A module marketplace for Safe account users to exlpore, enable and upgrade the modules
 
 
-### Programmable plugins:
 
-We believe that a account should be extensible to add desired features. ZenGuard enables this with the help of plugins leveraging Safe modules.
+> ℹ️ **BACKGROUND: Safe Modules**:
 
-ZenGuard will provide a market place of plugins to quickly add features to the wallet.
+>  Safe Modules enable Safe Accounts to add additional custom features in the form of standardized Smart Contracts. These smart contract logic can be anything from Social Recovery, Passkey Auth, Session Key to DeFi Automation, and much more. We have created a non-exhaustive list [ here ](https://notes.zenguard.xyz/module-research).
 
-A few plugins:
+** A few of these modules can be: **
 
 - **Session keys** : Allow third part application to perform transaction on user's behalf with a session key with limited capability.
 - **Transaction limit** :  Limit the transactions based on number of transactions/ daily spend limit etc.
