@@ -7,7 +7,7 @@ export default defineConfig({
     dark: '/logo/logo-dark.svg'
   }, 
   iconUrl: '/img/favicon.ico',
-  title: 'Docs',
+  title: 'ZenGuard | Documentation',
   sidebar: [
     {
       text: 'Introduction',
@@ -19,19 +19,19 @@ export default defineConfig({
       items: [
       { 
         text: 'Getting Started',  
-        link: '/build/build-modules',
+        link: '/getting-started/build-modules',
       },
       { 
         text: 'Interoperable Modules',  
-        link: '/build/interoperable-spec',
+        link: '/getting-started/interoperable-spec',
       },
       { 
         text: 'Build using ERC-7579',  
-        link: '/build/erc-7579',
+        link: '/getting-started/erc-7579',
       },
       { 
         text: 'Build using ERC-6900',  
-        link: '/build/erc-6900',
+        link: '/getting-started/erc-6900',
       }
 
       ],

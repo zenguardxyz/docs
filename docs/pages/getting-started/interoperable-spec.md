@@ -13,8 +13,8 @@ There are numerous usecases and benefits of building the modules on these standa
 
 There are 2 prominent standards to develop the modules. Follow these guides to start buildin modules using them
 
-- [ERC-7579](./erc-7579.md)
-- [ERC-6900](./erc-6900.md)
+- [ERC-7579](/getting-started/erc-7579)
+- [ERC-6900](/getting-started/erc-6900)
 
  ### Additional Resources
  

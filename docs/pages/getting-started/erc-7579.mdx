@@ -49,20 +49,57 @@ Here is a [module template](https://github.com/koshikraj/module-template-7579) t
 
 ## Usage
 
-1. Clone the repository:
+::::steps
+
+### Clone the repository:
 
     ```bash
     git clone https://github.com/koshikraj/module-template-7579.git
     ```
 
-2. Project structure:
+This will be the directory structure once you clone the template.
 
-├── module-template-7579 <br/>
-│   ├── [Safe App](https://github.com/koshikraj/module-template-7579/tree/main/web)<br/>
-│   ├── [Module](https://github.com/koshikraj/module-template-7579/tree/main/module)<br/>
-│   └── [Dependency Packages](https://github.com/koshikraj/module-template-7579/tree/main/packages)
+```txt [ Project structure]
+module-template-7579/
+├── web/
+├── module/
+├── packages/
+└── package.json // [!code ++]
+```
+
+### Update the modules and test
+ 
+This will be the directory structure of module. This module package is a combination of hardhat and foundry project.
+
+```txt [ Module structure]
+module/
+├── contracts/ // [!code hl]
+├── test/ // [!code hl]
+├── src/ 
+├── hardhat.config.ts
+└── foundry.toml 
+```
+
+The module codebase resides in the `contracts` and hardhat tests resides inside the `test`.
+
+To get started with building the 7579 module, use this [guide by Rhinestone](https://docs.rhinestone.wtf/modulekit/build/module-basics) on how to build Validator, Executors or Hooks
+
+Use the `test` folder to update the tests for your modules and run them against the Safe Account.
 
 
+### Update the Safe App
+ 
+This will be the directory structure of Safe Web App. 
+All the code logic to enable the Safe 7579 adapter, install the module and interact with the module resides here.
+
+```txt [ Safe App structure]
+web/src/
+├── logic/ // [!code hl]
+├── pages/ // [!code hl]
+└── utils/
+``` 
+
+::::
 
  ### Additional Resources
  
