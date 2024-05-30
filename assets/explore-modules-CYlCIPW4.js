@@ -1,0 +1,6 @@
+import{u as s,j as e}from"./index-Ic8STLE9.js";const o={title:"Explore Modules",description:"undefined"};function r(n){const t={a:"a",div:"div",h1:"h1",header:"header",img:"img",p:"p",...s(),...n.components};return e.jsxs(e.Fragment,{children:[e.jsx(t.header,{children:e.jsxs(t.h1,{id:"explore-modules",children:["Explore Modules",e.jsx(t.a,{"aria-hidden":"true",tabIndex:"-1",href:"#explore-modules",children:e.jsx(t.div,{"data-autolink-icon":!0})})]})}),`
+`,e.jsx(t.p,{children:"Module explorer can be directly used as a Safe App."}),`
+`,e.jsxs(t.p,{children:["Head over to our ",e.jsx(t.a,{href:"https://app.safe.global/share/safe-app?appUrl=https://explore.zenguard.xyz&chain=sep",children:"Marketplace"})]}),`
+`,e.jsx(t.p,{children:"Here are a few demos of using modules on ZenGuard directly on Safe Wallet."}),`
+`,e.jsx(t.p,{children:e.jsx(t.a,{href:"https://www.youtube.com/watch?v=myIRwe1k3y8",children:e.jsx(t.img,{src:"https://img.youtube.com/vi/myIRwe1k3y8/0.jpg",alt:"IMAGE ALT TEXT HERE"})})}),`
+`,e.jsx(t.p,{children:e.jsx(t.a,{href:"https://www.youtube.com/watch?v=wN7K_cafzcc",children:e.jsx(t.img,{src:"https://img.youtube.com/vi/wN7K_cafzcc/0.jpg",alt:"IMAGE ALT TEXT HERE"})})})]})}function c(n={}){const{wrapper:t}={...s(),...n.components};return t?e.jsx(t,{...n,children:e.jsx(r,{...n})}):r(n)}export{c as default,o as frontmatter};
