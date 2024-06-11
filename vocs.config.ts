@@ -30,9 +30,14 @@ export default defineConfig({
         link: '/getting-started/erc-7579',
       },
       { 
+        text: 'Build ERC-7579 validator',  
+        link: '/getting-started/building-7579-validator',
+      },
+      { 
         text: 'Build using ERC-6900',  
         link: '/getting-started/erc-6900',
       }
+
 
       ],
     },

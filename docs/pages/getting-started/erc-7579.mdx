@@ -25,27 +25,47 @@ There are various implementations for ERC-6900 accounts including:
 ERC-7579 based modules are natively not supported on Safe smart accounts. They can be easily supported via adapters.
 
 Safe along with Rhinestone team has developed a [7579 adapter](https://github.com/rhinestonewtf/safe7579) that will make Safe compatible with 7579 based modules.
+This also makes the Safe Accounts full ERC4337 and ERC7579 compliant. There is also a launchpad  that allows the new Safe Account to be created with 7579 enabled.
+Launchpad is a factory that creates Safe accounts with Safe7579 and initializes them with the required modules.
 
-### How to make a Safe comaptible with 7579 standard
+### How to make an existing Safe comaptible with 7579 standard
 
 - An existing Safe can be 7579 compatible just by adding the [7579 adapter](https://github.com/rhinestonewtf/safe7579) as a Safe Module and Safe Fallback handler.
 
 ### Getting started:
 
-The best way to get started with the module development is with the help of [module-template](https://github.com/rhinestonewtf/module-template) by Rhinestone.
+Before we install and enable any modules for Safe Accounts, they need to be developed and test. They can then be installed on an existing or a new Safe Account.
 
-Here are a few links to get started with building and testing.
+#### Steps to Build and Test Your Module
+
+The best way to get started with the module development is with the help of Module Template by Rhinestone.
+
+1. Clone the Module Template: Start by cloning the [module-template](https://github.com/rhinestonewtf/module-template) repository to use as a base for your development.
+
+2. Follow the Docs: Refer to the "[How to build a module](https://docs.rhinestone.wtf/modulekit/build/module-basics)" documentation for detailed steps and best practices.
+
+3. Develop Your Module: Customize and build your module using the template as a guide.
 
 
-- [With Rhinestone Module Kit](https://github.com/rhinestonewtf/modulekit/tree/main) - *Repo*
+#### Essential Links
+
+- [Rhinestone Module Kit](https://github.com/rhinestonewtf/modulekit/tree/main) - *Repo*
 - [Module template](https://github.com/rhinestonewtf/module-template) - *Repo*
 - [How to build a module](https://docs.rhinestone.wtf/modulekit/build/module-basics) - *Docs*
 
+
+#### Testing and Enabling Your Module on Safe
 
 Once the module has been independantly developed. It can be tested and enabled on Safe Accounts.
 If you are looking to enable the module on the existing Safe, it can be achieved by building a Safe App along with the [7579 adapter](https://github.com/rhinestonewtf/safe7579).
 
 Here is a [module template](https://github.com/koshikraj/module-template-7579) to get started building module and Safe App that enables and interacts with the module developed.
+
+Using this template, 
+
+- Testing module with Safe 7579 adapter: The module can be tested against Safe Accounts using the hardhat tests.
+
+- Enable on Safe Accounts: To enable the module on existing Safe accounts, you can create a Safe App using the 7579 adapter.
 
 ## Usage
 
