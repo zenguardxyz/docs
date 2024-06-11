@@ -1,4 +1,4 @@
-import{u as r,j as e}from"./index-Knvc2eLE.js";const o={title:"Introduction",description:"undefined"};function s(t){const n={a:"a",blockquote:"blockquote",div:"div",em:"em",h1:"h1",h2:"h2",header:"header",li:"li",ol:"ol",p:"p",strong:"strong",ul:"ul",...r(),...t.components};return e.jsxs(e.Fragment,{children:[e.jsx(n.header,{children:e.jsxs(n.h1,{id:"introduction",children:["Introduction",e.jsx(n.a,{"aria-hidden":"true",tabIndex:"-1",href:"#introduction",children:e.jsx(n.div,{"data-autolink-icon":!0})})]})}),`
+import{u as r,j as e}from"./index-BJ_PsKtW.js";const o={title:"Introduction",description:"undefined"};function s(t){const n={a:"a",blockquote:"blockquote",div:"div",em:"em",h1:"h1",h2:"h2",header:"header",li:"li",ol:"ol",p:"p",strong:"strong",ul:"ul",...r(),...t.components};return e.jsxs(e.Fragment,{children:[e.jsx(n.header,{children:e.jsxs(n.h1,{id:"introduction",children:["Introduction",e.jsx(n.a,{"aria-hidden":"true",tabIndex:"-1",href:"#introduction",children:e.jsx(n.div,{"data-autolink-icon":!0})})]})}),`
 `,e.jsxs(n.blockquote,{children:[`
 `,e.jsx(n.strong,{children:`Smarter Module Marketplace
 For your Smart Accounts`}),`
