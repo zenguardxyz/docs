@@ -1,70 +1,116 @@
-// SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.23;
-
-import { ERC7579ValidatorBase } from "../module-bases/ERC7579ValidatorBase.sol";
-import { PackedUserOperation } from
-    "@account-abstraction/contracts/core/UserOperationLib.sol"; 
-
-import { SignatureCheckerLib } from "solady/utils/SignatureCheckerLib.sol";
-import { ECDSA } from "solady/utils/ECDSA.sol";
-
+/**
+ * @title OwnableValidator
+ * @dev Module that allows users to designate EOA owners that can validate transactions using a
+ * threshold
+ * @author Rhinestone
+ */
 contract OwnableValidator is ERC7579ValidatorBase {
-    using SignatureCheckerLib for address;
 
-    mapping(address subAccout => address owner) public owners;  // [!code focus]  
 
-    function onInstall(bytes calldata data) external override {  // [!code focus]  
-        if (data.length == 0) return;                            // [!code focus]                              
-         address owner = abi.decode(data, (address));            // [!code focus]  
-        owners[msg.sender] = owner;                              // [!code focus]  
-    }
-
-    function onUninstall(bytes calldata) external override {      // [!code focus]  
-        delete owners[msg.sender];          // [!code focus]  
-    }            // [!code focus]  
- 
-    function validateUserOp(  // [!code focus]  
-        PackedUserOperation calldata userOp,  // [!code focus]  
-        bytes32 userOpHash  // [!code focus]  
-    )  
-        external
-        view
-        override
-        returns (ValidationData)
+        /**
+     * Validates a user operation
+     */
+    function validateUserOp(                                      // [!code focus]  
+        PackedUserOperation calldata userOp,                      // [!code focus]    
+        bytes32 userOpHash                                          // [!code focus]    
+    )                                                               // [!code focus]                    
+        external                                                  // [!code focus]  
+        view                                                          // [!code focus]  
+        override                                                          // [!code focus]  
+        returns (ValidationData)                                        // [!code focus]                    
     {
-        bool validSig = owners[userOp.sender].isValidSignatureNow(   // [!code focus]  
-            ECDSA.toEthSignedMessageHash(userOpHash), userOp.signature  // [!code focus]  
-        );  // [!code focus]  
-        return _packValidationData(!validSig, type(uint48).max, 0);  // [!code focus]  
-    }
+        // validate the signature with the config                         // [!code focus]  
+        bool isValid = _validateSignatureWithConfig(userOp.sender, userOpHash, userOp.signature);     // [!code focus]  
 
-    function isValidSignatureWithSender(
-        address,
+        if (isValid) {                                                // [!code focus]  
+            return VALIDATION_SUCCESS;                                // [!code focus]  
+        }                                                                 // [!code focus]  
+        return VALIDATION_FAILED;                                         // [!code focus]  
+    }                                                                     // [!code focus]  
+
+
+    function _validateSignatureWithConfig(
+        address account,
         bytes32 hash,
         bytes calldata data
     )
-        external
+        internal
         view
-        override
-        returns (bytes4)
+        returns (bool)
     {
-        address owner = owners[msg.sender];
-        return SignatureCheckerLib.isValidSignatureNowCalldata(owner, hash, data)
-            ? EIP1271_SUCCESS
-            : EIP1271_FAILED;
+
     }
 
-    function name() external pure returns (string memory) {
-        return "OwnableValidator";
+
+    /**
+     * Initializes the module with the threshold and owners
+     */
+    function onInstall(bytes calldata data) external override {
+
     }
 
-    function version() external pure returns (string memory) {
-        return "0.0.1";
+    /**
+     * Handles the uninstallation of the module and clears the threshold and owners
+     */
+    function onUninstall(bytes calldata) external override {
+
     }
 
+    /**
+     * Checks if the module is initialized
+     */
+    function isInitialized(address smartAccount) public view returns (bool) {
+        return threshold[smartAccount] != 0;
+    }
+
+    /**
+     * Sets the threshold for the account
+     */
+    function setThreshold(uint256 _threshold) external {
+
+    }
+
+    /**
+     * Adds an owner to the account
+     */
+    function addOwner(address owner) external {
+
+    }
+
+    /**
+     * Removes an owner from the account
+     */
+    function removeOwner(address prevOwner, address owner) external {
+
+    }
+
+    /**
+     * Returns the owners of the account
+     */
+    function getOwners(address account) external view returns (address[] memory ownersArray) {
+        // get the owners from the linked list
+        (ownersArray,) = owners.getEntriesPaginated(account, SENTINEL, MAX_OWNERS);
+    }
+
+
+    /**
+     * Returns the type of the module
+     */
     function isModuleType(uint256 typeID) external pure override returns (bool) {
         return typeID == TYPE_VALIDATOR;
     }
 
-    function isInitialized(address smartAccount) external view returns (bool) { }
+    /**
+     * Returns the name of the module
+     */
+    function name() external pure virtual returns (string memory) {
+        return "OwnableValidator";
+    }
+
+    /**
+     * Returns the version of the module
+     */
+    function version() external pure virtual returns (string memory) {
+        return "1.0.0";
+    }
 }

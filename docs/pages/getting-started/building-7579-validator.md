@@ -13,7 +13,7 @@ In this tutorial, we will create a basic 7579 validator module. This module can 
 
 Before we install and enable any modules for Safe Accounts, they need to be developed and thoroughly tested. Once developed, these modules can be installed on either an existing or a new Safe Account.
 
-In this tutorial, we will build a basic external validator. This validator will have the capability to add a new owner and verify transactions for an existing Safe Account.
+In this tutorial, We will make use of a validator called [OwnableValidator](https://github.com/rhinestonewtf/core-modules/blob/main/src/OwnableValidator/OwnableValidator.sol) by Rhinestone. This validator will have the capability to add a new owner or multiple owners and verify transactions for an existing Safe Account.
 
 ::::steps
 
@@ -23,17 +23,19 @@ In this tutorial, we will build a basic external validator. This validator will 
 git clone https://github.com/koshikraj/module-template-7579.git
 ```
 
-To simplify development, let's start with a module template that comes with all the necessary dependencies pre-installed. This module package combines both Hardhat and Foundry projects for a streamlined setup.
+To simplify the development, let's start with a module template that comes with all the necessary dependencies pre-installed. This module package combines both Hardhat and Foundry projects for a streamlined setup.
 
 ### Build the validator module
 
-We will create an ownable validator using the 7579 standard that accomplishes the following tasks:
+We will use the ownable validator that is compliant with the 7579 standard to accomplish the following tasks:
 
 1. Adds a new owner address to the Safe by mapping it to the account address when installing the module.
 2. Implements validation logic in the validateUserOp method to ensure the transaction is signed by the added owner.
 3. Removes the new owner address mapped to the Safe account address when uninstalling the module.
 
-Here is the module code that achieves these requirements:
+Find the entire code of [OwnableValidator here](https://github.com/rhinestonewtf/core-modules/blob/main/src/OwnableValidator/OwnableValidator.sol).
+
+Here is the basic structure of module code with validation that achieves these requirements:
 
 ```ts  [ OwnableValidator.sol ]
 
@@ -47,8 +49,7 @@ You can now build and test this code against the Safe Account by placing it unde
 module-template-7579/
 ├── module/          // [!code focus]  
 |   └── contracts/   // [!code focus] 
-├── web/
-└──  packages/
+└──  web/
 ```
 
 Make sure the module can build without any errors inside the project.
@@ -76,7 +77,7 @@ To test our validator module against Safe, follow these steps
 
     await execSafeTransaction(safe, 
     {to: await safe.getAddress(),  // [!code focus]  
-    data:  ((await safe7579.installModule.populateTransaction(1, await ownableValidator.getAddress(), utils.defaultAbiCoder.encode(['address'], [user1.address]))).data as string),   // [!code focus]  
+    data:  ((await safe7579.installModule.populateTransaction(1, await ownableValidator.getAddress(), utils.defaultAbiCoder.encode(['uint256', 'address[]'], [1, [user1.address]]))).data  as string),   // [!code focus]  
     value: 0})  // [!code focus]  
 
     const key = BigInt(pad(await ownableValidator.getAddress() as Hex, {    // [!code focus]  
@@ -100,8 +101,7 @@ You can now test the validator module against the Safe Account by placing the te
 module-template-7579/
 ├── module/          // [!code focus]  
 |   └── test/   // [!code focus] 
-├── web/
-└── packages/
+└── web/
 ```
 
 After setting up the validation test flow, you can run the tests to ensure everything is working correctly. 
@@ -154,8 +154,9 @@ Here is the snippet of code that
 ```ts  [ module.ts ]
 
 
-export const addValidatorModule = async (ownerAddress: string ) => {
 
+
+export const addValidatorModule = async (ownerAddress: Hex ) => {
     
     if (!await isConnectedToSafe()) throw Error("Not connected to a Safe")
 
@@ -164,18 +165,18 @@ export const addValidatorModule = async (ownerAddress: string ) => {
     const txs: BaseTransaction[] = []
 
 
+
     if (!await isModuleEnabled(info.safeAddress, safe7579Module)) {
         txs.push(await buildEnableModule(info.safeAddress, safe7579Module))
         txs.push(await buildUpdateFallbackHandler(info.safeAddress, safe7579Module))
+        txs.push(await buildInitSafe7579())
+ 
+        txs.push(await buildOwnableInstallModule([ownerAddress], 1))
     }
+    else if(!await isInstalled(OWNABLE_VALIDATOR_ADDRESS, 'validator')) {    // [!code hl]
+        txs.push(await buildOwnableInstallModule([ownerAddress], 1))         // [!code hl] 
 
-    txs.push(await buildInitSafe7579())
-
-    txs.push(await buildInstallOwnable(ownerAddress))
-
-    const provider = await getProvider()
-    // Updating the provider RPC if it's from the Safe App.
-    const chainId = (await provider.getNetwork()).chainId.toString()
+    }
 
     if (txs.length > 0)  
     await submitTxs(txs)
@@ -183,7 +184,45 @@ export const addValidatorModule = async (ownerAddress: string ) => {
 
 ```
 
-Before the OwnableValidator is installed, we just need to provide the owner address that needs to be added.
+Here is snippet of code that creates the transaction required to install the validator module. We are making use 
+of [module-sdk](https://docs.rhinestone.wtf/module-sdk/getting-started) by Rhinestone to achieve this.
+
+```ts [ module.ts]
+
+
+    const provider = await getProvider()
+    const safeInfo = await getSafeInfo()
+    
+    // Updating the provider RPC if it's from the Safe App.
+    const chainId = (await provider.getNetwork()).chainId.toString()
+
+    const client = getClient({ rpcUrl: NetworkUtil.getNetworkById(parseInt(chainId))?.url!});
+
+    // Create the account object
+    const account = getAccount({    
+            address: safe7579Module,
+            type: "safe",
+        });
+
+    const ownableValidator = getInstallOwnableValidator({   // [!code focus]  
+        owners: owners,                                      // [!code focus]      
+        threshold: threshold, // owners threshold            // [!code focus]  
+      });                                                      // [!code focus]    
+
+    const executions = await installModule({                  // [!code focus]     
+        client,                                                // [!code focus]    
+        account,                                                 // [!code focus]  
+        module: ownableValidator,                                        // [!code focus]  
+      });
+
+    return { to: safeInfo.safeAddress , value: executions[0].value.toString() , data: executions[0].callData }
+
+}
+
+```
+
+
+We can now use execute these transaction using Safe App. Before the OwnableValidator is installed on our Safe Wallet, we just need to provide the owner address that needs to be added.
 
 ![Validator App Home](/img/validator-app-home.png)
 
@@ -250,6 +289,17 @@ export const sendTransaction = async (chainId: string, recipient: string, amount
 As soon as the transaction is executed, it can be verified via the Safe {Wallet} transactions.
 ![Validator TX](/img/validator-tx.png)
 ::::
+
+
+Hope this tutorial was helpful to kickstart the module development. Here is a video walkthrough of each step:
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/yWnFCjBr7_E/0.jpg)](https://www.youtube.com/watch?v=yWnFCjBr7_E)
+
+## More module usecases
+
+-  [ZeroDev passkey validator for Safe](https://github.com/koshikraj/safe-passkey-validator) ([Demo](https://youtu.be/G7hQw_v780I))
+-  [Sub Account for Safe](https://github.com/koshikraj/safe-subaccount) ([Demo](https://youtu.be/_4BDcQiIUvo))
+-  [Share crypto via links - Session Key](https://github.com/koshikraj/safelink)  ([Demo](https://youtu.be/iVxuDs-usVQ))
 
 
 
